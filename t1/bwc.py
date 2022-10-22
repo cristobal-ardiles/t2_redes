@@ -105,14 +105,14 @@ total_bytes_sent = 0
 
 ## Aquí ya tenemos el tamaño del paquete acordado 
 with open(filein,"rb") as input:
-    chunk = input.read(package_size)
+    chunk = input.read(package_size-2)
     while chunk:
         # Creamos el mensaje como un bytearray
         #Enviamos el mensaje
         bytes_sent, _ = send_msg(sv_socket,"D",chunk,timeout)
         total_bytes_sent += bytes_sent
         #Volvemos a leer un pedazo de texto
-        chunk = input.read(package_size)
+        chunk = input.read(package_size-2)
 # Cuando se acaba el mensaje, enviamos una E
 # Este mensaje incluye solo el header, es decir, el contenido es vacío
 send_msg(sv_socket,"E",bytearray(),timeout)
